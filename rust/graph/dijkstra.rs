@@ -1,3 +1,4 @@
+const INF: i64 = 1 << 61;
 use std::collections::BinaryHeap;
 
 struct Graph {
@@ -24,7 +25,6 @@ impl Graph {
     }
 
     fn dijkstra_search(&self, start: usize) -> (Vec<i64>, Vec<usize>) {
-        const INF: i64 = 1 << 61;
         let mut dist: Vec<i64> = vec![INF; self.n]; // Dijkstraなのでi64ではなくusizeの方がいいかも
         let mut visited: Vec<bool> = vec![false; self.n];
         let mut prev: Vec<usize> = vec![INF as usize; self.n]; //nodeを格納するのにusizeでないの気持ち悪い
@@ -52,7 +52,6 @@ impl Graph {
     }
 
     fn dijkstra_shortest_path(&self, start: usize, goal: usize) -> Vec<usize> {
-        const INF: usize = 1 << 61;
         let (dist, prev) = self.dijkstra_search(start);
         let mut shortest_path: Vec<usize>= vec![];
         let mut node = goal;
