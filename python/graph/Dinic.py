@@ -11,16 +11,14 @@ class Dinic:
         self.iter = [0 for _ in range(self.N)]
 
     def add(self, u, v, c, directed=True):
-        """
-        0-indexed
-        u = from, v = to, c = cap
-        directed = Trueなら、有向グラフである
-        """
         if directed:
             self.edges[u].append([v, c, len(self.edges[v])])
             self.edges[v].append([u, 0, len(self.edges[u])-1])
-        else:  # maybe needs to be rewritten by list
-            self.edges[u].append([v, c, len(self.edges[u])])
+        else:  # TODO: must be Verified
+            self.edges[u].append([v, c, len(self.edges[v])])
+            self.edges[v].append([u, 0, len(self.edges[u]) - 1])
+            self.edges[v].append([u, c, len(self.edges[u])])
+            self.edges[u].append([v, 0, len(self.edges[v]) - 1])
 
     def bfs(self, s):
         self.level = [-1 for _ in range(self.N)]
