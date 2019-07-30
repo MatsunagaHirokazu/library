@@ -1,6 +1,4 @@
-# -*- coding: utf-8 -*-
 import collections
-import queue
 
 
 class Dinic:
@@ -23,15 +21,14 @@ class Dinic:
     def bfs(self, s):
         self.level = [-1 for _ in range(self.N)]
         self.level[s] = 0
-        que = queue.Queue()
-        que.put(s)
-        while not que.empty():
-            v = que.get(s)
+        que = collections.deque([s])
+        while que:
+            v = que.popleft()
             for i in range(len(self.edges[v])):
                 e = self.edges[v][i]
                 if e[1] > 0 and self.level[e[0]] < 0:
                     self.level[e[0]] = self.level[v] + 1
-                    que.put(e[0])
+                    que.append(e[0])
 
     def dfs(self, v, t, f):
         if v == t:
